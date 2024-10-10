@@ -1,35 +1,7 @@
-import {
-    editModal,
-    imageModal,
-    newCardModal,
-} from "../index";
-
 const activeModalClass = 'popup_is-opened';
 let activeModalCloseButtonEl;
 
-export function openImageModal(cardInfo){
-    showModalElement(imageModal);
-    registerModalWatchers(imageModal);
-
-    const popupImgEl = imageModal.querySelector('.popup__image');
-    popupImgEl.setAttribute('src', cardInfo.link);
-    popupImgEl.setAttribute('alt', cardInfo.name);
-
-    const popupCaptionEl = imageModal.querySelector('.popup__caption');
-    popupCaptionEl.textContent = cardInfo.name;
-}
-
-export function openProfileModal() {
-    showModalElement(editModal);
-    registerModalWatchers(editModal);
-}
-
-export function openNewCardModal() {
-    showModalElement(newCardModal);
-    registerModalWatchers(newCardModal);
-}
-
-function showModalElement(modalEl) {
+export function showModalElement(modalEl) {
     modalEl.classList.add(activeModalClass);
 }
 
@@ -56,7 +28,7 @@ function onEsc(e) {
     }
 }
 
-function registerModalWatchers(forModal) {
+export function registerModalWatchers(forModal) {
     activeModalCloseButtonEl = forModal.querySelector('.popup__close');
 
     document.addEventListener('keydown', onEsc);

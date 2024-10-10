@@ -3,16 +3,14 @@ import {createNewCard, deleteCard, likeCard} from "./components/card.js";
 import {initialCards} from "./components/cards.js";
 import {
     closeActiveModal,
-    openNewCardModal,
-    openProfileModal,
+    registerModalWatchers, showModalElement,
     unRegisterModalWatchers,
 } from "./components/modal";
 
-
-export const templateContent = document.querySelector('#card-template').content;
-export const imageModal = document.querySelector('.popup_type_image');
-export const editModal = document.querySelector('.popup_type_edit');
-export const newCardModal= document.querySelector('.popup_type_new-card');
+const templateContent = document.querySelector('#card-template').content;
+const imageModal = document.querySelector('.popup_type_image');
+const editModal = document.querySelector('.popup_type_edit');
+const newCardModal= document.querySelector('.popup_type_new-card');
 const list = document.querySelector('.places__list');
 const profileEditButton = document.querySelector('.profile__edit-button');
 const createNewCardButton = document.querySelector('.profile__add-button');
@@ -24,7 +22,7 @@ const nameInput = profileFormElement.elements['name'];
 const descriptionInput = profileFormElement.elements['description'];
 
 initialCards.forEach(function (cardInfo) {
-    const card = createNewCard(cardInfo, deleteCard, likeCard);
+    const card = createNewCard(cardInfo, templateContent, deleteCard, likeCard, openImageModal);
     list.append(card);
 });
 
@@ -65,4 +63,26 @@ function handleCardFormSubmit(evt) {
     unRegisterModalWatchers();
     closeActiveModal();
     cardFormElement.removeEventListener('submit', handleCardFormSubmit);
+}
+
+function openProfileModal() {
+    showModalElement(editModal);
+    registerModalWatchers(editModal);
+}
+
+function openNewCardModal() {
+    showModalElement(newCardModal);
+    registerModalWatchers(newCardModal);
+}
+
+function openImageModal(cardInfo){
+    showModalElement(imageModal);
+    registerModalWatchers(imageModal);
+
+    const popupImgEl = imageModal.querySelector('.popup__image');
+    popupImgEl.setAttribute('src', cardInfo.link);
+    popupImgEl.setAttribute('alt', cardInfo.name);
+
+    const popupCaptionEl = imageModal.querySelector('.popup__caption');
+    popupCaptionEl.textContent = cardInfo.name;
 }

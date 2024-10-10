@@ -1,9 +1,6 @@
-import {templateContent} from "../index";
-import {openImageModal} from "./modal.js";
-
 const cardLikedClass = 'card__like-button_is-active';
 
-export function createNewCard(cardInfo, deleteCardCb, likeCardCb) {
+export function createNewCard(cardInfo, templateContent, deleteCardCb, likeCardCb, openImageModal) {
     const card = templateContent.cloneNode(true).querySelector('.card');
     const cardImg = card.querySelector('.card__image');
     const cardLikeButton = card.querySelector('.card__like-button');
