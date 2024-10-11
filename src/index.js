@@ -57,7 +57,7 @@ function handleCardFormSubmit(evt) {
 
     const name = cardFormElement.elements['place-name'].value;
     const link = cardFormElement.elements['link'].value;
-    const newCard = createNewCard({ name, link }, deleteCard, likeCard);
+    const newCard = createNewCard({ name, link }, templateContent, deleteCard, likeCard, openImageModal);
 
     list.prepend(newCard);
     unRegisterModalWatchers();
