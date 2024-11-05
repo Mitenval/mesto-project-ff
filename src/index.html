@@ -10,7 +10,7 @@
 <body class="page">
 <div class="page__content">
   <header class="header page__section">
-    <img src="<%=require('./images/logo.svg')%>" alt="Логотип проекта масто" class="logo header__logo">
+    <img src="<%=require('./images/logo.svg')%>" alt="Логотип проекта место" class="logo header__logo">
   </header>
   <main class="content">
     <section class="profile page__section">
@@ -37,8 +37,8 @@
       <button type="button" class="popup__close"></button>
       <h3 class="popup__title">Редактировать профиль</h3>
       <form class="popup__form" name="edit-profile">
-        <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Имя" required>
-        <input type="text" name="description" class="popup__input popup__input_type_description" placeholder="Занятие" required>
+        <input type="text"  name="name" class="popup__input popup__input_type_name" placeholder="Имя"  minlength="2" maxlength="40" pattern="/^[a-zа-яё\s-]+$/i" required>
+        <input type="text" name="description" class="popup__input popup__input_type_description" placeholder="Занятие" minlength="2" maxlength="200" pattern="/^[a-zа-яё\s-]+$/i" required>
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
     </div>
@@ -48,7 +48,7 @@
       <button type="button" class="popup__close"></button>
       <h3 class="popup__title">Новое место</h3>
       <form class="popup__form" name="new-place">
-        <input type="text" name="place-name" class="popup__input popup__input_type_card-name" placeholder="Название" required>
+        <input type="text" name="place-name" class="popup__input popup__input_type_card-name" placeholder="Название" minlength="2" maxlength="30" pattern="/^[a-zа-яё\s-]+$/i" required>
         <input type="url" name="link" class="popup__input popup__input_type_url" placeholder="Ссылка на картинку" required>
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
@@ -61,6 +61,17 @@
       <p class="popup__caption"></p>
     </div>
   </div>
+  <div class="popup popup_type_avatar popup_is-animated">
+    <div class="popup__content avatar__content">
+      <button type="button" class="popup__close"></button>
+      <h3 class="popup__title">Обновить аватар</h3>
+      <form class="popup__form" name="edit-profile">
+        <input type="url" name="link" class="popup__input popup__input_type_name" placeholder="https://somewebsite.com/someimage.jpg"  minlength="2" maxlength="40" required>
+        <button type="submit" class="button popup__button">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
 </div>
 <script src="index.js" defer></script>
 
@@ -71,7 +82,10 @@
     <div class="card__description">
       <h2 class="card__title">
       </h2>
+      <div>
       <button type="button" class="card__like-button"></button>
+      <div class="card__like-counter">1</div>
+      </div>
     </div>
   </li>
 </template>

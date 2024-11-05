@@ -11,6 +11,7 @@ const templateContent = document.querySelector('#card-template').content;
 const imageModal = document.querySelector('.popup_type_image');
 const editModal = document.querySelector('.popup_type_edit');
 const newCardModal= document.querySelector('.popup_type_new-card');
+const profileImageEditModal = document.querySelector('.popup_type_avatar')
 const list = document.querySelector('.places__list');
 const profileEditButton = document.querySelector('.profile__edit-button');
 const createNewCardButton = document.querySelector('.profile__add-button');
@@ -20,6 +21,7 @@ const cardFormElement = newCardModal.querySelector('.popup__form[name="new-place
 const profileFormElement = document.querySelector('.popup__form[name="edit-profile"]')
 const nameInput = profileFormElement.elements['name'];
 const descriptionInput = profileFormElement.elements['description'];
+const profileImage = document.querySelector('.profile__image')
 
 initialCards.forEach(function (cardInfo) {
     const card = createNewCard(cardInfo, templateContent, deleteCard, likeCard, openImageModal);
@@ -86,3 +88,12 @@ function openImageModal(cardInfo){
     const popupCaptionEl = imageModal.querySelector('.popup__caption');
     popupCaptionEl.textContent = cardInfo.name;
 }
+
+function openAvatarModal() {
+    showModalElement(profileImageEditModal);
+    registerModalWatchers(profileImageEditModal);
+
+}
+
+profileImage.addEventListener('click', openAvatarModal);
+
