@@ -18,7 +18,7 @@ const createNewCardButton = document.querySelector('.profile__add-button');
 const profileNameElement = document.querySelector('.profile__title');
 const profileDescriptionElement = document.querySelector('.profile__description');
 const cardFormElement = newCardModal.querySelector('.popup__form[name="new-place"]');
-const profileFormElement = document.querySelector('.popup__form[name="edit-profile"]')
+const profileFormElement = document.querySelector('.popup__form[name="edit-profile"]');
 const nameInput = profileFormElement.elements['name'];
 const descriptionInput = profileFormElement.elements['description'];
 const profileImage = document.querySelector('.profile__image')
@@ -93,6 +93,15 @@ function openAvatarModal() {
     showModalElement(profileImageEditModal);
     registerModalWatchers(profileImageEditModal);
 
+}
+
+function enableValidation(popup__input) {
+    if (!popup__input === true) {
+
+    }
+    else {
+        popup__error_visible.textContent = "Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+    }
 }
 
 profileImage.addEventListener('click', openAvatarModal);
