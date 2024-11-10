@@ -1,22 +1,16 @@
-// todo Информация о пользователе должна подгружаться с сервера.
-//  Чтобы осуществить это, сделайте GET-запрос на URL.
-//  cohortId замените на идентификатор вашей группы:
-//
-// GET https://nomoreparties.co/v1/:cohortId/users/me
+export const sendZapros = () => {
+    return fetch('https://nomoreparties.co/v1/wff-cohort-24/cards', {
+        headers: {
+            authorization: '3fda53f6-cae9-47b1-9be0-ea783f14a9a7'
+        }
+    })
+        .then(res => res.json())
+        .then((result) => {
+            console.log(result);
+        });
+}
 
-//todo токен и номер кагорты
-//
-// return fetch('https://nomoreparties.co/v1/wff-cohort-24/cards', {
-//     headers: {
-//         authorization: '3fda53f6-cae9-47b1-9be0-ea783f14a9a7'
-//     }
-// })
-//     .then(res => res.json())
-//     .then((result) => {
-//         console.log(result);
-//     });
-
-
+document.forms
 //todo для регулярного выражения
 //
 // /^[a-zа-яё\s-]+$/i

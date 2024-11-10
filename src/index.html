@@ -37,8 +37,10 @@
       <button type="button" class="popup__close"></button>
       <h3 class="popup__title">Редактировать профиль</h3>
       <form class="popup__form" name="edit-profile">
-        <input type="text"  name="name" class="popup__input popup__input_type_name" placeholder="Имя"  minlength="2" maxlength="40" pattern="/^[a-zа-яё\s-]+$/i" required>
-        <input type="text" name="description" class="popup__input popup__input_type_description" placeholder="Занятие" minlength="2" maxlength="200" pattern="/^[a-zа-яё\s-]+$/i" required>
+        <input type="text" id="name" name="name" class="popup__input popup__input_type_name" placeholder="Имя"  minlength="2" maxlength="40" pattern="^[a-zA-Zа-яА-ЯёЁ\s\-]+$" data-invalid-text="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" required>
+        <span class="input-error-text name-error"></span>
+        <input type="text" id="description" name="description" class="popup__input popup__input_type_description" placeholder="Занятие" minlength="2" maxlength="200" pattern="^[a-zA-Zа-яА-ЯёЁ\s\-]+$" data-invalid-text="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" required>
+        <span class="input-error-text description-error"></span>
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
     </div>
@@ -48,8 +50,10 @@
       <button type="button" class="popup__close"></button>
       <h3 class="popup__title">Новое место</h3>
       <form class="popup__form" name="new-place">
-        <input type="text" name="place-name" class="popup__input popup__input_type_card-name" placeholder="Название" minlength="2" maxlength="30" pattern="/^[a-zа-яё\s-]+$/i" required>
-        <input type="url" name="link" class="popup__input popup__input_type_url" placeholder="Ссылка на картинку" required>
+        <input type="text" id="place" name="place-name" class="popup__input popup__input_type_card-name" placeholder="Название" minlength="2" maxlength="30" pattern="^[a-zA-Zа-яА-ЯёЁ\s\-]+$" data-invalid-text="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" required>
+        <span class="input-error-text place-error"></span>
+        <input type="url" id="place-link" name="link" class="popup__input popup__input_type_url" placeholder="Ссылка на картинку" required>
+        <span class="input-error-text place-link-error"></span>
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
     </div>
@@ -66,7 +70,8 @@
       <button type="button" class="popup__close"></button>
       <h3 class="popup__title">Обновить аватар</h3>
       <form class="popup__form" name="edit-profile">
-        <input type="url" name="link" class="popup__input popup__input_type_name" placeholder="https://somewebsite.com/someimage.jpg"  minlength="2" maxlength="40" required>
+        <input type="url" id="avatar-link" name="link" class="popup__input popup__input_type_name" placeholder="https://somewebsite.com/someimage.jpg"  minlength="2" maxlength="40" required>
+        <span class="input-error-text avatar-link-error"></span>
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
     </div>

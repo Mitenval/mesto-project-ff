@@ -6,6 +6,8 @@ import {
     registerModalWatchers, showModalElement,
     unRegisterModalWatchers,
 } from "./components/modal";
+import {clearValidation, enableValidation} from "./validation";
+import {sendZapros} from "./api";
 
 const templateContent = document.querySelector('#card-template').content;
 const imageModal = document.querySelector('.popup_type_image');
@@ -21,7 +23,16 @@ const cardFormElement = newCardModal.querySelector('.popup__form[name="new-place
 const profileFormElement = document.querySelector('.popup__form[name="edit-profile"]');
 const nameInput = profileFormElement.elements['name'];
 const descriptionInput = profileFormElement.elements['description'];
-const profileImage = document.querySelector('.profile__image')
+const profileImage = document.querySelector('.profile__image');
+
+const popupFormSelector = '.popup__form';
+const formElementsSelectors = {
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
+};
 
 initialCards.forEach(function (cardInfo) {
     const card = createNewCard(cardInfo, templateContent, deleteCard, likeCard, openImageModal);
@@ -68,11 +79,13 @@ function handleCardFormSubmit(evt) {
 }
 
 function openProfileModal() {
+    clearValidation(editModal.querySelector('.popup__form'), formElementsSelectors);
     showModalElement(editModal);
     registerModalWatchers(editModal);
 }
 
 function openNewCardModal() {
+    clearValidation(newCardModal.querySelector('.popup__form'), formElementsSelectors);
     showModalElement(newCardModal);
     registerModalWatchers(newCardModal);
 }
@@ -90,19 +103,20 @@ function openImageModal(cardInfo){
 }
 
 function openAvatarModal() {
+    clearValidation(profileImageEditModal.querySelector('.popup__form'), formElementsSelectors);
     showModalElement(profileImageEditModal);
     registerModalWatchers(profileImageEditModal);
 
 }
 
-function enableValidation(popup__input) {
-    if (!popup__input === true) {
-
-    }
-    else {
-        popup__error_visible.textContent = "Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
-    }
-}
+enableValidation({
+    formSelector: popupFormSelector,
+    ...formElementsSelectors,
+});
 
 profileImage.addEventListener('click', openAvatarModal);
+
+sendZapros().then((data) => {
+    console.log('fuck',data)
+})
 

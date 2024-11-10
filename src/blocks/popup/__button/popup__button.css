@@ -11,10 +11,16 @@
   border-radius: 2px;
   border: none;
   transition: visibility 0s, background 0.3s;
-  margin-top: 48px;
+  margin-top: 30px;
 }
 
-.popup__button:hover {
+.popup__button_disabled {
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.2);
+}
+
+.popup__button:not(.popup__button_disabled):hover {
   background: rgba(0, 0, 0, 0.8);
   cursor: pointer;
 }
