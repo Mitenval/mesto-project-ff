@@ -1,5 +1,3 @@
-import { deleteCardFromServer } from "../api";
-
 const cardLikedClass = "card__like-button_is-active";
 const cardDeleteButtonHidden = "card__delete-button--hidden";
 
@@ -36,16 +34,6 @@ export function createNewCard(
             updateCardLikeCounter(likeCounter, data.newCardInfo);
         });
     });
-
-    // cardLikeButton.addEventListener('click', () => {
-    //     likeCard(cardInfo._id)
-    //         .then(updatedCardData => {
-    //             // Обновляем счётчик лайков после успешного запроса
-    //             likeCounter.textContent = updatedCardData.likes.length;
-    //             cardLikeButton.classList.toggle('card__like-button_active', updatedCardData.likes.some(user => user._id === userId));
-    //         })
-    //         .catch(err => console.error('Ошибка при обновлении лайка:', err));
-    // });
 
     card.querySelector(".card__title").textContent = cardInfo.name;
 

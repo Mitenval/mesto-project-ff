@@ -1,6 +1,5 @@
 import "./styles/index.css";
 import { createNewCard } from "./components/card.js";
-import { initialCards } from "./components/cards.js";
 import {
     closeActiveModal,
     registerModalWatchers,
@@ -49,6 +48,9 @@ const formElementsSelectors = {
     inputErrorClass: "popup__input_type_error",
     errorClass: "popup__error_visible",
 };
+const savingText = "Сохранение..."
+const saveText = "Сохранить"
+
 let userId;
 
 profileEditButton.addEventListener("click", function () {
@@ -69,18 +71,24 @@ createNewCardButton.addEventListener("click", function () {
 profileImage.addEventListener('click', function () {
     avatarFormElement.reset();
     openAvatarModal();
-    avatarFormElement.addEventListener('submit', handleAvatarFormSubmit);
+    avatarFormElement.addEventListener("submit", handleAvatarFormSubmit);
 });
 
 function handleProfileFormSubmit(evt) {
     evt.preventDefault();
+
+    const submitButton = profileFormElement.querySelector('.popup__button')
+
+    submitButton.textContent = savingText
 
     profileNameElement.textContent = nameInput.value;
     profileDescriptionElement.textContent = descriptionInput.value;
 
     unRegisterModalWatchers();
     closeActiveModal();
-    updateUserProfile(nameInput.value, descriptionInput.value);
+    updateUserProfile(nameInput.value, descriptionInput.value).finally(() => {
+        submitButton.textContent = saveText
+    });
     profileFormElement.removeEventListener("submit", handleProfileFormSubmit);
 }
 
@@ -89,6 +97,9 @@ function handleCardFormSubmit(evt) {
 
     const name = cardFormElement.elements["place-name"].value;
     const link = cardFormElement.elements["link"].value;
+    const submitButton = cardFormElement.querySelector('.popup__button')
+
+    submitButton.textContent = savingText
 
     addCard(name, link)
         .then((newCardData) => {
@@ -110,11 +121,16 @@ function handleCardFormSubmit(evt) {
         })
         .finally(() => {
             cardFormElement.removeEventListener("submit", handleCardFormSubmit);
+            submitButton.textContent = saveText
         });
 }
 
 function handleAvatarFormSubmit(evt) {
     evt.preventDefault();
+
+    const submitButton = avatarFormElement.querySelector('.popup__button')
+
+    submitButton.textContent = savingText
 
     const newAvatarLink = avatarInput.value;
     updateUserAvatar(newAvatarLink)
@@ -126,6 +142,7 @@ function handleAvatarFormSubmit(evt) {
         .catch((err) => console.error('Ошибка обновления аватара:', err))
         .finally(() => {
             avatarFormElement.removeEventListener('submit', handleAvatarFormSubmit);
+            submitButton.textContent = saveText
         });
 }
 

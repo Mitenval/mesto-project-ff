@@ -1,63 +1,3 @@
-// export const sendZapros = () => {
-//     return fetch('${config.baseUrl}/cards', {
-//         headers: {
-//             authorization: '3fda53f6-cae9-47b1-9be0-ea783f14a9a7'
-//         }
-//     })
-//         .then(res => res.json())
-//         .then((result) => {
-//             console.log(result);
-//         });
-// }
-
-// function fetchUserInfo() {
-//     return fetch('${config.baseUrl}/users/me', {
-//         method: 'GET',
-//         headers: {
-//             authorization: '3fda53f6-cae9-47b1-9be0-ea783f14a9a7'
-//         }
-//     })
-//         .then(res => {
-//             if (!res.ok) {
-//                 return Promise.reject(`Ошибка: ${res.status}`);
-//             }
-//             return res.json();
-//         })
-//         .then((userInfo) => {
-//             console.log('Информация о пользователе:', userInfo);
-//         })
-//         .catch((error) => {
-//             console.error('Ошибка загрузки информации о пользователе:', error);
-//         });
-// }
-//
-// fetchUserInfo();
-//
-// function fetchCards() {
-//     return fetch('${config.baseUrl}/cards', {
-//         method: 'GET',
-//         headers: {
-//             authorization: '3fda53f6-cae9-47b1-9be0-ea783f14a9a7'
-//         }
-//     })
-//         .then(res => {
-//             if (!res.ok) {
-//                 return Promise.reject(`Ошибка: ${res.status}`);
-//             }
-//             return res.json();
-//         })
-//         .then((cards) => {
-//             console.log('Карточки:', cards);
-//         })
-//         .catch((error) => {
-//             console.error('Ошибка загрузки карточек:', error);
-//         });
-// }
-//
-// fetchCards();
-
-
-
 const cohortId = "wff-cohort-24";
 
 const config = {
@@ -91,125 +31,92 @@ export function loadUserDataAndCards() {
         });
 }
 
-// Функция для отображения карточек
-function renderCards(cards, userId) {
-    cards.forEach((card) => {
-        // Используйте card.name и card.link для отображения заголовка и изображения карточки
-        // Логика для отображения состояния кнопок лайка и удаления, основываясь на userId
-        // console.log(`Название: ${card.name}, Ссылка: ${card.link}`);
-    });
-}
-
 // Функция для обновления профиля пользователя
 export function updateUserProfile(name, about) {
-    console.log("updateUserProfile", name, about);
-    fetch(`${config.baseUrl}/users/me`, {
+    const promise = fetch(`${config.baseUrl}/users/me`, {
         method: "PATCH",
-        headers: {
-            authorization: "3fda53f6-cae9-47b1-9be0-ea783f14a9a7",
-            "Content-Type": "application/json",
-        },
+        headers: config.headers,
         body: JSON.stringify({
             name: name,
             about: about,
         }),
-    })
-        .then((res) => {
-            if (!res.ok) {
-                return Promise.reject("Ошибка при обновлении профиля");
-            }
-            return res.json();
-        })
-        .catch((error) => {
-            console.error(error);
-        });
+    });
+
+    return preformRequest(promise);
 }
 
 export function addCard(name, link) {
-    return fetch(`${config.baseUrl}/cards`, {
+    const promise = fetch(`${config.baseUrl}/cards`, {
         method: "POST",
-        headers: {
-            authorization: "3fda53f6-cae9-47b1-9be0-ea783f14a9a7",
-            "Content-Type": "application/json",
-        },
+        headers: config.headers,
         body: JSON.stringify({
             name: name,
             link: link,
         }),
-    }).then((res) => {
-        if (!res.ok) {
-            return Promise.reject("Ошибка при добавлении карточки");
-        }
-        return res.json();
     });
+
+    return preformRequest(promise);
 }
 
 export function deleteCardFromServer(cardId) {
-    return fetch(`${config.baseUrl}/cards/${cardId}`, {
+    const promise = fetch(`${config.baseUrl}/cards/${cardId}`, {
         method: "DELETE",
-        headers: {
-            authorization: "3fda53f6-cae9-47b1-9be0-ea783f14a9a7",
-            "Content-Type": "application/json",
-        },
-    }).then((res) => {
-        if (!res.ok) {
-            return Promise.reject(`Ошибка: ${res.status}`);
-        }
-        return res.json();
+        headers: config.headers,
     });
+
+    return preformRequest(promise);
 }
 
 export function likeCardRequest(cardId) {
-    return fetch(
+    const promise = fetch(
         `${config.baseUrl}/cards/likes/${cardId}`,
         {
             method: "PUT",
-            headers: {
-                authorization: "3fda53f6-cae9-47b1-9be0-ea783f14a9a7",
-                "Content-Type": "application/json",
-            },
+            headers: config.headers,
         },
-    ).then((res) => {
-        if (!res.ok) {
-            return Promise.reject("Ошибка при лайке карточки");
-        }
-        return res.json();
-    });
+    )
+
+    return preformRequest(promise);
 }
 
 export function unlikeCardRequest(cardId) {
-    return fetch(
+    const promise = fetch(
         `${config.baseUrl}/cards/likes/${cardId}`,
         {
             method: "DELETE",
-            headers: {
-                authorization: "3fda53f6-cae9-47b1-9be0-ea783f14a9a7",
-                "Content-Type": "application/json",
-            },
+            headers: config.headers,
         },
-    ).then((res) => {
-        if (!res.ok) {
-            return Promise.reject("Ошибка при лайке карточки");
-        }
-        return res.json();
-    });
+    )
+
+    return preformRequest(promise);
 }
 
 export function updateUserAvatar(avatarLink) {
-    return fetch(`${config.baseUrl}/users/me/avatar`, {
+    const promise = fetch(`${config.baseUrl}/users/me/avatar`, {
         method: 'PATCH',
-        headers: {
-            authorization: "3fda53f6-cae9-47b1-9be0-ea783f14a9a7",
-            'Content-Type': 'application/json'
-        },
+        headers: config.headers,
         body: JSON.stringify({
             avatar: avatarLink
         })
-    })
-        .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`));
+    });
+
+    return preformRequest(promise);
 }
 
 // todo
-//  1) Реализовать во всех fetch проверку res.ok / res.status и catch.
-//  2) При редактировании профиля уведомите пользователя о процессе загрузки, поменяв текст кнопки на: «Сохранение...», пока данные загружаются.
-//  3) Для работы с API создайте файл api.js. Все запросы присвойте переменным и экспортируйте их. В других модулях вы сможете импортировать эти функции и вызывать их.
+//  1) При редактировании профиля уведомите пользователя о процессе загрузки, поменяв текст кнопки на: «Сохранение...», пока данные загружаются.
+
+
+function preformRequest(requestPromise) {
+    return requestPromise
+        .then((result) => {
+            if (result.ok) {
+                return result.json();
+            }
+
+            return Promise.reject(`Ошибка: ${result.status}`);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
