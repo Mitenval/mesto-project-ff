@@ -103,10 +103,6 @@ export function updateUserAvatar(avatarLink) {
     return preformRequest(promise);
 }
 
-// todo
-//  1) При редактировании профиля уведомите пользователя о процессе загрузки, поменяв текст кнопки на: «Сохранение...», пока данные загружаются.
-
-
 function preformRequest(requestPromise) {
     return requestPromise
         .then((result) => {

@@ -1,18 +1,3 @@
-//todo очистка ошибок валидации вызовом clearValidation
-// Очищает ошибки валидации формы и делает кнопку неактивной.
-// Эта функция должна принимать как параметры DOM-элемент формы,
-// для которой очищаются ошибки валидации и объект с настройками валидации
-
-// clearValidation(profileForm, validationConfig);
-
-// надо в index.js
-
-
-// todo проверка и вывод ошибки полей
-//
-// const formElement = document.querySelector('.form');
-// const formError = formElement.querySelector(`.${formInput.id}-error`);
-
 const showError = (formElement, inputElement, /*errorMessage,*/ inputErrorClass, errorClass) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
@@ -112,53 +97,3 @@ export function clearValidation(formElement, formElementsSelectors) {
     });
 }
 
-// todo Функция активации/деактивации кнопки "Сохранить"
-
-// function toggleButtonState(formElement, submitButton, inputSelector, inactiveButtonClass) {
-//   const isFormValid = Array.from(formElement.querySelectorAll(inputSelector)).every(input => input.validity.valid);
-//   submitButton.disabled = !isFormValid;
-//   submitButton.classList.toggle(inactiveButtonClass, !isFormValid);
-// }
-
-
-// todo Функция инициализации валидации для формы
-
-// function setFormValidation(formElement, { inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass }) {
-//   const submitButton = formElement.querySelector(submitButtonSelector);
-
-
-// todo Установка начального состояния кнопки
-
-  // toggleButtonState(formElement, submitButton, inputSelector, inactiveButtonClass);
-
-
-// todo Добавляем обработчики на все инпуты
-
-//   formElement.addEventListener('input', (event) => {
-//     checkInputValidity(event.target, inputErrorClass, errorClass);
-//     toggleButtonState(formElement, submitButton, inputSelector, inactiveButtonClass);
-//   });
-// }
-
-// todo Функция проверки и отображения ошибок
-// function checkInputValidity(inputElement, inputErrorClass, errorClass) {
-//   const errorElement = inputElement.nextElementSibling;
-//
-//   if (!inputElement.validity.valid) {
-//     inputElement.classList.add(inputErrorClass);
-//     errorElement.textContent = inputElement.dataset.invalidText || inputElement.validationMessage;
-//     errorElement.classList.add(errorClass);
-//   } else {
-//     inputElement.classList.remove(inputErrorClass);
-//     errorElement.textContent = "";
-//     errorElement.classList.remove(errorClass);
-//   }
-// }
-
-
-// todo Функция для проверки на корректность ввода символов (латиница, кириллица, дефис, пробел)
-//  ???
-// function isValidInput(input) {
-//     const regex = "/^[a-zа-яё\s-]+$/i";
-//     return regex.test(input.value);
-// }
