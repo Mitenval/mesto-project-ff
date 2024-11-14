@@ -1,77 +1,39 @@
 # Mesto Project
 
-The **Mesto** project is an interactive web application where users can share photos, like posts, and edit profile information. The project includes form validation, API integration, and server deployment.
+## Description
 
-## Functionality
+**Mesto Project** is an interactive web application that allows users to create, edit and delete cards with images and descriptions of interesting places. The project is designed to create a platform where users can share photos and like their favorite cards.
 
-### Form Validation
-1. **"Edit Profile" Form**:
-    - The "Name" and "About Me" fields are validated for length and input restrictions.
-    - Dynamic validation makes the "Save" button active only when the data is correct.
-    - Validation errors are cleared when the form is reopened.
+This project differs from previous works by focusing on dynamic card management and user interaction with content (likes, modal windows for viewing images, profile and avatar editing).
 
-2. **"New Place" Form**:
-    - The "Title" and "Image URL" fields are required: the first is validated for length, and the second for URL format.
-    - If the data does not meet the requirements, a custom error message is displayed.
-    - The form is cleared after a card is added to the page.
+### Technologies used
+- **HTML5**
+- **CSS3** using the **BEM methodology**
+- **JavaScript** (ES6+)
+- **REST API** for processing requests to the server
 
-3. **Avatar Update Form**:
-    - The field for the new avatar URL is validated for URL format.
-    - An edit icon appears when hovering over the avatar.
+## Installation and configuration
 
-### API Integration
-- The project is connected to a server, allowing for loading user information and cards, as well as adding, deleting, and liking cards.
-- All API requests include a unique token and group ID.
+### Requirements
 
-#### Main API Requests:
-1. **Loading User Information** - GET request.
-2. **Loading Cards** - Initial cards are loaded from the server.
-3. **Editing Profile** - PATCH request, sending updated user data.
-4. **Adding a New Card** - POST request with the card title and image URL.
-5. **Liking and Unliking a Card** - PUT and DELETE requests to manage likes.
-6. **Deleting a Card** - DELETE request with the card ID.
-7. **Updating User Avatar** - PATCH request that accepts the URL of the new avatar.
+- **Node.js**: Make sure that the Node version is installed.js (12 or higher).
 
-### Enhanced UX
-- The "Save" and "Add" buttons change text to "Saving..." and "Adding..." during data submission.
-- Error messages are displayed to improve the user experience in case of request failures.
+### Installation
+```bash
+npm install
+```
 
-## Project Structure
+## To run the project locally
+```bash 
+npm run dev
+```
+Then open index.html using a live server.
 
-- **validation.js**: Functions for form validation, including `enableValidation` to enable validation and `clearValidation` to clear errors.
-- **api.js**: Functions for sending requests to the server, covering all main methods for handling user data and cards.
-
-## Installation and Launch
-
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/your-username/mesto.git
-    ```
-
-2. Install dependencies:
-    ```bash
-    npm install
-    ```
-
-3. Start the project in development mode:
-    ```bash
-    npm run dev
-    ```
-
-4. To deploy the project:
-    ```bash
-    npm run build
-    npm run deploy
-    ```
+###  To deploy the project:
+```bash
+npm run build
+npm run deploy
+```
 
 ## Deployment
-The project is deployed to a server and available at [application link](https://mitenval.github.io/mesto-project-ff/).
-
----
-
-## Technologies
-- **HTML/CSS**: Adaptive and semantic layout.
-- **JavaScript**: Reactive interface, form validation, event handling.
-- **API**: Interaction with the server through REST API.
-- **Git**: Version control system for tracking changes.
-- **Webpack**: Project bundling and resource optimization.
+The project is deployed to a server and available at [mesto project link](https://mitenval.github.io/mesto-project-ff/).
