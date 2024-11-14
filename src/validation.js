@@ -1,4 +1,4 @@
-const showError = (formElement, inputElement, /*errorMessage,*/ inputErrorClass, errorClass) => {
+const showError = (formElement, inputElement, inputErrorClass, errorClass) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
     inputElement.classList.add(inputErrorClass);
@@ -16,7 +16,7 @@ const hideError = (formElement, inputElement, inputErrorClass, errorClass) => {
 
 const checkInputValidity = (formElement, formInput, inputErrorClass, errorClass) => {
     if (!formInput.validity.valid) {
-        showError(formElement, formInput, /*formInput.validationMessage,*/ inputErrorClass, errorClass);
+        showError(formElement, formInput, inputErrorClass, errorClass);
     } else {
         hideError(formElement, formInput, inputErrorClass, errorClass);
     }
