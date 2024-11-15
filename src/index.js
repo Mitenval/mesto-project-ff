@@ -1,12 +1,12 @@
 import "./styles/index.css";
-import { createNewCard } from "./components/card.js";
+import {changeCardLikeButtonState, createNewCard, removeCard, updateCardLikeCounter} from "./components/card.js";
 import {
     closeActiveModal,
     registerModalWatchers,
     showModalElement,
     unRegisterModalWatchers,
 } from "./components/modal";
-import { clearValidation, enableValidation } from "./validation";
+import { clearValidation, enableValidation } from "./components/validation";
 import {
     addCard,
     deleteCardFromServer,
@@ -14,7 +14,7 @@ import {
     loadUserDataAndCards,
     unlikeCardRequest, updateUserAvatar,
     updateUserProfile,
-} from "./api";
+} from "./components/api";
 
 const templateContent = document.querySelector("#card-template").content;
 const imageModal = document.querySelector(".popup_type_image");
@@ -81,14 +81,17 @@ function handleProfileFormSubmit(evt) {
 
     submitButton.textContent = savingText
 
-    profileNameElement.textContent = nameInput.value;
-    profileDescriptionElement.textContent = descriptionInput.value;
-
-    unRegisterModalWatchers();
-    closeActiveModal();
-    updateUserProfile(nameInput.value, descriptionInput.value).finally(() => {
-        submitButton.textContent = saveText
-    });
+    updateUserProfile(nameInput.value, descriptionInput.value)
+        .then(() => {
+            profileNameElement.textContent = nameInput.value;
+            profileDescriptionElement.textContent = descriptionInput.value;
+            unRegisterModalWatchers();
+            closeActiveModal();
+        })
+        .catch(logError)
+        .finally(() => {
+            submitButton.textContent = saveText
+        });
     profileFormElement.removeEventListener("submit", handleProfileFormSubmit);
 }
 
@@ -116,9 +119,7 @@ function handleCardFormSubmit(evt) {
             unRegisterModalWatchers();
             closeActiveModal();
         })
-        .catch((error) => {
-            console.error("Ошибка добавления карточки:", error);
-        })
+        .catch(logError)
         .finally(() => {
             cardFormElement.removeEventListener("submit", handleCardFormSubmit);
             submitButton.textContent = saveText
@@ -129,17 +130,15 @@ function handleAvatarFormSubmit(evt) {
     evt.preventDefault();
 
     const submitButton = avatarFormElement.querySelector('.popup__button')
+    submitButton.textContent = savingText;
 
-    submitButton.textContent = savingText
-
-    const newAvatarLink = avatarInput.value;
-    updateUserAvatar(newAvatarLink)
+    updateUserAvatar(avatarInput.value)
         .then((userData) => {
             profileImage.src = userData.avatar;
             unRegisterModalWatchers();
             closeActiveModal();
         })
-        .catch((err) => console.error('Ошибка обновления аватара:', err))
+        .catch(logError)
         .finally(() => {
             avatarFormElement.removeEventListener('submit', handleAvatarFormSubmit);
             submitButton.textContent = saveText
@@ -204,28 +203,33 @@ loadUserDataAndCards().then(([userData, cards]) => {
             cardInfo,
             userId,
             templateContent,
-            deleteCardFromServer,
+            deleteCard,
             likeCard,
             openImageModal,
         );
         list.append(card);
     });
-});
+}).catch(logError);
 
-function likeCard(cardInfo, hasMyLike) {
-    if (hasMyLike) {
-        return unlikeCardRequest(cardInfo._id).then((response) => {
-            return {
-                isLiked: hasMyLike,
-                newCardInfo: response,
-            };
-        });
-    }
+function likeCard(cardInfo, hasMyLike, cardLikeButton, likeCounter) {
+    const likePromise = hasMyLike ?
+        unlikeCardRequest(cardInfo._id)
+        : likeCardRequest(cardInfo._id);
 
-    return likeCardRequest(cardInfo._id).then((response) => {
-        return {
-            isLiked: hasMyLike,
-            newCardInfo: response,
-        };
-    });
+
+    likePromise.then((response) => {
+        cardInfo.likes = response.likes;
+        changeCardLikeButtonState(cardLikeButton, response, userId);
+        updateCardLikeCounter(likeCounter, response);
+    }).catch(logError);
+}
+
+function deleteCard(card, cardId)  {
+    deleteCardFromServer(cardId).then(() => {
+        removeCard(card);
+    }).catch(logError);
+}
+
+function logError(err) {
+    console.log(err);
 }

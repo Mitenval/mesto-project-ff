@@ -25,9 +25,6 @@ export function loadUserDataAndCards() {
                 return Promise.reject("Ошибка при загрузке данных");
             }
             return Promise.all([userRes.json(), cardsRes.json()]);
-        })
-        .catch((error) => {
-            console.error(error);
         });
 }
 
@@ -111,8 +108,5 @@ function preformRequest(requestPromise) {
             }
 
             return Promise.reject(`Ошибка: ${result.status}`);
-        })
-        .catch((err) => {
-            console.log(err);
         });
 }
