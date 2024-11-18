@@ -134,7 +134,7 @@ function handleAvatarFormSubmit(evt) {
 
     updateUserAvatar(avatarInput.value)
         .then((userData) => {
-            profileImage.src = userData.avatar;
+            profileImage.style.backgroundImage = `url("${userData.avatar}")`;
             unRegisterModalWatchers();
             closeActiveModal();
         })

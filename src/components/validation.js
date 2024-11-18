@@ -1,9 +1,9 @@
-const showError = (formElement, inputElement, inputErrorClass, errorClass) => {
+const showError = (formElement, inputElement, errorMessage, inputErrorClass, errorClass) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
     inputElement.classList.add(inputErrorClass);
     errorElement.classList.add(errorClass);
-    errorElement.textContent = inputElement.validationMessage;
+    errorElement.textContent = errorMessage;
 };
 
 const hideError = (formElement, inputElement, inputErrorClass, errorClass) => {
@@ -16,7 +16,11 @@ const hideError = (formElement, inputElement, inputErrorClass, errorClass) => {
 
 const checkInputValidity = (formElement, formInput, inputErrorClass, errorClass) => {
     if (!formInput.validity.valid) {
-        showError(formElement, formInput, inputErrorClass, errorClass);
+        const errorMessage= formInput.validity.patternMismatch ?
+            formInput.getAttribute("data-invalid-text")
+            : formInput.validationMessage;
+
+        showError(formElement, formInput, errorMessage, inputErrorClass, errorClass);
     } else {
         hideError(formElement, formInput, inputErrorClass, errorClass);
     }
